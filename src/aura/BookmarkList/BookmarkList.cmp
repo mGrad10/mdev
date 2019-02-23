@@ -1,0 +1,19 @@
+<!--
+ - Created by Melinda on 2019-02-22.
+ -->
+
+<aura:component description="BookmarkList" controller="BookmarkController"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+
+    <aura:attribute name="bookmarkList" type="List"/>
+    <aura:attribute name="bookmarkListBanner" type="String" default="Bookmark List"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:layout>
+        <lightning:layoutItem class="slds-align-middle">
+            Hello {!v.bookmarkListBanner}
+        </lightning:layoutItem>
+    </lightning:layout>
+
+</aura:component>

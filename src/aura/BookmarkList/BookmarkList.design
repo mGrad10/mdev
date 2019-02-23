@@ -1,0 +1,10 @@
+<!--
+ - Created by Lolly on 2019-02-22.
+ -->
+
+<design:component label="Bookmark List">
+
+    <design:attribute name="bookmarkListBanner" label="The banner for this component" />
+
+
+</design:component>
