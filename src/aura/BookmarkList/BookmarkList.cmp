@@ -12,8 +12,15 @@
 
     <lightning:layout>
         <lightning:layoutItem class="slds-align-middle">
-            Hello {!v.bookmarkListBanner}
+            {!v.bookmarkListBanner}
         </lightning:layoutItem>
     </lightning:layout>
+
+        <aura:iteration items="{!v.bookmarkList}" var="bookmark">
+            <lightning:layout>
+                <p class="slds-p-right--small"> {!bookmark.bookmark.Name} </p>
+                <lightning:button label="" iconName="utility:bookmark" value="{!bookmark}" onclick="{!c.doCreateFavorite}" />
+            </lightning:layout>
+        </aura:iteration>
 
 </aura:component>

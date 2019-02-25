@@ -8,4 +8,11 @@ public with sharing class ResponseWrapper {
     @AuraEnabled public Boolean success{get;set;}
     @AuraEnabled public List<String> exceptionMessages {get;set;}
 
+    public ResponseWrapper(){
+
+        this.bookmarks = new List<BookmarkWrapper>();
+        this.exceptionMessages = new List<String>();
+        
+    }
+
 }

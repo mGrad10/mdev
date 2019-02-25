@@ -11,10 +11,8 @@ public with sharing class BookmarkController {
 
         try{
 
-            //Get the current running User, we need this to get they're ContactId
+            //Get the current running User, we need this to get their ContactId
             List<User> currentUser = [SELECT Id, ContactId FROM User WHERE Id =: UserInfo.getUserId()];
-
-            System.debug('CURRENT USER ==' + currentUser);
 
 
             //Query all the User's Favorite Bookmarks and add their Bookmark Ids to a list
@@ -30,10 +28,8 @@ public with sharing class BookmarkController {
             //Get all bookmarks and create wrappers
             List<Bookmark__c> allBookmarks = [SELECT Id, Name, URL__c FROM Bookmark__c];
 
-            System.debug('ALL BOOKMARK QUERy ==' + allBookmarks);
             for(Bookmark__c theBookmark : allBookmarks){
 
-                System.debug('bookmark id' + theBookmark.Id);
                 BookmarkWrapper bookmarkWrapper = new BookmarkWrapper();
                 bookmarkWrapper.bookmark = theBookmark;
 
@@ -42,7 +38,6 @@ public with sharing class BookmarkController {
                 }else{
                     bookmarkWrapper.isFavorite = FALSE;
                 }
-                response.bookmarks = new List<BookmarkWrapper>();
                 response.bookmarks.add(bookmarkWrapper);
             }
 
@@ -51,10 +46,40 @@ public with sharing class BookmarkController {
         }catch(Exception e){
             response.success = FALSE;
             response.exceptionMessages.add(e.getMessage());
-            System.debug('RESPONSE ====' + response);
         }
 
+        System.debug('RESPONSE ====' + response);
+        return response;
+    }
 
+    @AuraEnabled
+    public static ResponseWrapper createUserFavoriteBookmark(Bookmark__c theBookmark){
+
+        ResponseWrapper response = new ResponseWrapper();
+
+        try{
+
+            //Get the current running User, we need this to get their ContactId
+            List<User> currentUser = [SELECT Id, ContactId FROM User WHERE Id =: UserInfo.getUserId()];
+
+            //If the Bookmark is not NULL, create a bookmark favorite for the User
+            if((theBookmark != NULL)
+                    && (currentUser[0].ContactId != NULL && currentUser[0].ContactId != '')){
+
+                response.success = TRUE;
+                Favorite_Bookmark__c favoriteBookmark = new Favorite_Bookmark__c();
+                favoriteBookmark.Bookmark__c = theBookmark.Id;
+                favoriteBookmark.Name = theBookmark.Name;
+                favoriteBookmark.Contact__c = currentUser[0].ContactId;
+                insert favoriteBookmark;
+
+            }
+
+        }catch(Exception e){
+            response.success = FALSE;
+            response.exceptionMessages.add(e.getMessage());
+        }
+        System.debug('RESPONSE ====' + response);
         return response;
     }
 }
