@@ -19,9 +19,7 @@
         <aura:iteration items="{!v.bookmarkList}" var="bookmark">
             <lightning:layout>
                 <p class="slds-p-right--small"> {!bookmark.bookmark.Name} </p>
-                <aura:if isTrue="{!bookmark.isFavorite}">
                     <lightning:button label="" iconName="utility:bookmark" value="{!bookmark}" onclick="{!c.doCreateFavorite}" />
-                </aura:if>
             </lightning:layout>
         </aura:iteration>
 

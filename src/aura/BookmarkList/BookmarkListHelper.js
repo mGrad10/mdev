@@ -53,6 +53,29 @@
         $A.enqueueAction(action);
     },
 
+    deleteFavorite: function (component,event,helper,bookmarkToDeleteFavorite) {
+
+        console.log('INSIDE DELETE FAVS');
+
+        //Call Apex controller to get Bookmarks
+        var action = component.get("c.deleteUserFavoriteBookmark");
+
+        action.setParam('theBookmark', bookmarkToDeleteFavorite);
+
+        action.setCallback(this,function(response) {
+            if (response.getReturnValue().success) {
+                console.log('SUCCESS');
+                helper.showToast(component,event,helper,'Success', 'Favorites Updated');
+            }
+            else {
+
+                helper.showToast(component,event,helper,'Error', response.getReturnValue().exceptionMessages[0]);
+
+            }
+        });
+        $A.enqueueAction(action);
+    },
+
     showToast : function(component, event, helper, title, message) {
         var toastEvent = $A.get("e.force:showToast");
         toastEvent.setParams({
