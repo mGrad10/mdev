@@ -33,11 +33,12 @@
     createFavorite: function (component,event,helper,bookmarkToFavorite) {
 
         console.log('INSIDE CREATE FAVS');
+        console.log(bookmarkToFavorite);
 
         //Call Apex controller to get Bookmarks
         var action = component.get("c.createUserFavoriteBookmark");
 
-        action.setParam('theBookmark', bookmarkToFavorite);
+        action.setParams({ theBookmarkId : bookmarkToFavorite });
 
         action.setCallback(this,function(response) {
             if (response.getReturnValue().success) {
@@ -60,7 +61,7 @@
         //Call Apex controller to get Bookmarks
         var action = component.get("c.deleteUserFavoriteBookmark");
 
-        action.setParam('theBookmark', bookmarkToDeleteFavorite);
+        action.setParams({ theBookmark : bookmarkToDeleteFavorite });
 
         action.setCallback(this,function(response) {
             if (response.getReturnValue().success) {

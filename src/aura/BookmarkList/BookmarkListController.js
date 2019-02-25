@@ -8,7 +8,7 @@
 
     doCreateFavorite: function (component, event, helper) {
 
-        var bookmarkToFavorite = event.getSource().get('v.value').bookmark;
+        var bookmarkToFavorite = event.getSource().get('v.value').bookmark.Id;
 
         //If the bookmark is not a favorite, create a favorite record
         if(!bookmarkToFavorite.isFavorite__c){

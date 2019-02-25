@@ -53,7 +53,7 @@ public with sharing class BookmarkController {
     }
 
     @AuraEnabled
-    public static ResponseWrapper createUserFavoriteBookmark(Bookmark__c theBookmark){
+    public static ResponseWrapper createUserFavoriteBookmark(String theBookmarkId){
 
         ResponseWrapper response = new ResponseWrapper();
 
@@ -63,13 +63,13 @@ public with sharing class BookmarkController {
             List<User> currentUser = [SELECT Id, ContactId FROM User WHERE Id =: UserInfo.getUserId()];
 
             //If the Bookmark is not NULL, create a bookmark favorite for the User
-            if((theBookmark != NULL)
+            if((theBookmarkId != NULL)
                     && (currentUser[0].ContactId != NULL && currentUser[0].ContactId != '')){
 
                 response.success = TRUE;
                 Favorite_Bookmark__c favoriteBookmark = new Favorite_Bookmark__c();
-                favoriteBookmark.Bookmark__c = theBookmark.Id;
-                favoriteBookmark.Name = theBookmark.Name;
+                favoriteBookmark.Bookmark__c = theBookmarkId;
+                favoriteBookmark.Name = theBookmarkId;
                 favoriteBookmark.Contact__c = currentUser[0].ContactId;
                 insert favoriteBookmark;
 
