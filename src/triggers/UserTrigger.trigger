@@ -1,7 +1,5 @@
 trigger UserTrigger on User (before insert, after insert, before update, after update) {
 
-    //Hello
-
     if(Trigger.isAfter){
         if(Trigger.isUpdate){
 

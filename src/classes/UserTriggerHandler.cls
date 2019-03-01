@@ -1,5 +1,6 @@
 public with sharing class UserTriggerHandler {
 
+    /* Method to update email on Contact records related to User */
     public static void updateContactEmail(List<User> userList) {
 
         //Map Users to their Contact Ids
